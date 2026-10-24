@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /glossario/
+Disallow: /glossario
+Disallow: /artefactos/
+Disallow: /artefactos
+Disallow: /costa/
+Disallow: /costa
