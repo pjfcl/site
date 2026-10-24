@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>03: Dicionário de Contrabando| Desvios semióticos do lexico comum</title>
+    
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #1a1a1a;
+            font-family: 'Courier New', monospace;
+            padding: 50px;
+            line-height: 1.4;
+        }
+        .wrapper { max-width: 900px; margin: auto; border: 1px solid #ccc; background: #fff; padding: 40px; box-shadow: 10px 10px 0px #ddd; }
+        header { border-bottom: 2px solid #000; margin-bottom: 30px; }
+        .tag { background: #000; color: #fff; padding: 2px 8px; font-size: 0.8rem; }
+        h1 { margin: 10px 0; font-size: 1.5rem; text-transform: uppercase; }
+        
+        .section-title { font-weight: bold; text-transform: uppercase; margin-top: 30px; border-left: 5px solid #000; padding-left: 10px; }
+        .code-block { background: #eee; padding: 15px; border-radius: 3px; font-size: 0.85rem; overflow-x: auto; border-left: 3px solid #888; color: #333; }
+        
+        .architecture-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .architecture-table td, .architecture-table th { border: 1px solid #ddd; padding: 8px; font-size: 0.8rem; }
+        .architecture-table th { background: #f9f9f9; text-align: left; }
+
+        nav a { text-decoration: none; color: #000; border: 1px solid #000; padding: 5px 10px; font-size: 0.8rem; }
+        nav a:hover { background: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <nav><a href="../index.html">RETURN_TO_SOFTWARE_ROOT</a></nav>
+
+    <header>
+        <span class="tag">ARTEFACTO 01</span>
+        <h1>Dicionário de Contrabando</h1>
+        <p>Desvios semióticos do lexico comun</p>
+    </header>
+
+    <div class="section-title">I. Filosofia do Projecto</div>
+    <p>o Dicionário de Contrabando surge como uma ferramenta de subversão antropológica e resistência semântica.</p>
+<p>Este dicionário não inventa palavras; desvia-as. Trata-se de um repositório de contra-estratégias lexicais onde o idioma oficial, engessado pela norma e pelo utilitarismo tecnocrático, é confrontado com a dureza e a poesia da prática quotidiana — seja na severidade da cozinha de luxo de um resort em Porto Santo, seja nos interstícios da margem.</p>
+
+    <div class="section-title">II. Especificações Técnicas</div>
+    <table class="architecture-table">
+        <tr><th>Linguagem</th><td></td>HTML + Javascript</td></tr>
+        
+        <tr><th>Interface</th><td>WEB (Browser)</td></tr>
+        <tr><th>Objectivo</th><td>É um manifesto em modo de base de dados alfanumérica, desenhado para restituir à palavra o peso da carne e ao pensamento a agilidade da resistência.</td></tr>
+    </table>
+
+    <div class="section-title">III. Snippet de Implementação</div>
+    <pre class="code-block">
+;; Definição de um Ingrediente (Record-Type)
+(define-record-type ingredient
+  (fields name quantity unit waste-percentage))
+
+;; Cálculo de peso líquido (Net Weight)
+(define (calcula-peso-liquido ing)
+  (let ([q (ingredient-quantity ing)]
+        [w (ingredient-waste-percentage ing)])
+    (* q (- 1 (/ w 100)))))
+
+;; Exemplo: Cebola Roxa com 12% de desperdício
+(define cebola-roxa (make-ingredient "Cebola Roxa" 1.5 'kg 12))
+    </pre>
+
+    <div class="section-title">IV. Manifesto do Artífice</div>
+    <p>A escolha de uma linguagem da família Lisp para a gestão gastronómica reflecte a busca pela sintaxe mínima e pela potência máxima. Em Scheme, a receita não é apenas um texto; é uma estrutura de dados viva.</p>
+
+    <footer>
+        <hr>
+        <p style="font-size: 0.7rem; color: #999;">Status: ACTIVE_STABLE | Last Build: 2026-09-22 | Encoding: UTF-8</p>
+    </footer>
+</div>
+
+</body>
+</html>

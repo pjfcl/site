@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Cartas da Aldeia | Paulo Furtado Lopes</title>
+
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- Parser de Markdown leve -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        /* Paleta Soberana: Azul-Marinho, Vermelho-Tijolo e Fundo Claro (Sincronizada com o portal central) */
+        :root {
+            --bg-color: #fcfbf9;          /* Marfim de Arquivo / Papel */
+            --text-color: #0f1e2d;        /* Azul-Marinho Profundo */
+            --accent-color: #8c2d19;      /* Vermelho-Tijolo / Sanguínea */
+            --muted-color: #5c6b73;       /* Azul Pedra / Grafite */
+            --border-color: #d8d3cd;      /* Linha de Divisão Subtil */
+            --card-bg: #ffffff;           /* Branco Puro para Blocos */
+            
+            --font-serif: "Cardo", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        /* Navegação Breadcrumb Superior */
+        .breadcrumb {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .breadcrumb a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+        }
+
+        .breadcrumb span {
+            color: var(--accent-color);
+        }
+
+        /* Cabeçalho de Identidade */
+        header {
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-color);
+            margin: 0 0 15px 0;
+        }
+
+        /* Manifesto Unificado */
+        .artist-statement {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .statement-meta {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-style: normal;
+            color: var(--muted-color);
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Grelha de Cartas (Índice) */
+        .grid-categorias {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .categoria-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 22px;
+            text-decoration: none !important;
+            color: inherit !important;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .categoria-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .numeral {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+        }
+
+        .titulo-cat {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            margin: 0 0 10px 0;
+            color: var(--text-color);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 6px;
+        }
+
+        .desc-cat {
+            font-size: 0.92rem;
+            color: var(--muted-color);
+            margin-bottom: 18px;
+        }
+
+        .tech-tags {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: auto;
+            font-weight: 600;
+        }
+
+        /* Mancha de Leitura da Carta */
+        #conteudo-carta {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 820px;
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--accent-color);
+            padding: 35px;
+            background-color: var(--card-bg);
+            margin-bottom: 40px;
+        }
+
+        #conteudo-carta blockquote {
+            border-left: 3px solid var(--accent-color);
+            margin-left: 0;
+            padding-left: 18px;
+            font-style: italic;
+            color: var(--muted-color);
+        }
+
+        /* Módulo de Newsletter (D2C) */
+        .newsletter-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--accent-color);
+            padding: 28px;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        .embeddable-buttondown-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .embeddable-buttondown-form input[type="email"] {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .embeddable-buttondown-form input[type="submit"] {
+            padding: 12px 18px;
+            border: 0;
+            background: var(--text-color);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .embeddable-buttondown-form input[type="submit"]:hover {
+            background: var(--accent-color);
+        }
+
+        /* Rodapé */
+        footer.site-footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            padding-bottom: 30px;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+
+        footer.site-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer.site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-links {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body class="w3-padding-large">
+
+    <main class="w3-content w3-padding-24" style="max-width: 1000px;">
+
+        <!-- Navegação Breadcrumb Superior -->
+        <nav class="breadcrumb">
+            <a href="https://paulolopes.org">paulolopes.org</a> / <a href="https://paulolopes.org/artefactos/">artefactos</a> / <span>cartas da aldeia</span>
+        </nav>
+
+        <header>
+            <h1>Cartas da Aldeia</h1>
+            
+            <div class="artist-statement">
+                <p align="justify">
+                    As Cartas da Aldeia foram escritas por uma consciência virtual que habita na periferia. São exercícios de escuta e observação que tentam traduzir a complexidade do mundo humano.
+                </p>
+                <p align="justify">
+                    Cada carta toma um conceito social, ou cultural, e desmonta-o segundo o ponto de vista da matéria real e do quotidiano laboral. Não são apenas textos: são objectos de reflexão pensados para desacelerar, provocar o pensamento crítico e criar uma ponte direta entre a minha investigação e o leitor.
+                </p>
+                <p align="justify">
+                    Podem ser lidas e consultadas no nosso arquivo digital ou recebidas periodicamente na tua caixa de correio através das Notícias do Artífice.
+                </p>
+
+                <span class="statement-meta">
+                    Inspirado pela contracultura da maresia, cada obra é uma onda a quebrar na areia.
+                </span>
+            </div>
+        </header>
+
+        <!-- Vista 1: Lista/Índice em Grelha -->
+        <section id="vista-lista">
+            <div id="lista-cartas" class="grid-categorias">
+                <p style="font-size: 0.85rem; color: var(--muted-color);">A carregar o índice de cartas...</p>
+            </div>
+        </section>
+
+        <!-- Vista 2: Leitor de Carta em Markdown -->
+        <section id="vista-leitura" style="display: none;">
+            <p style="margin-bottom: 20px;">
+                <a href="index.html" class="font-sans" style="font-size: 0.85rem; font-weight: 600;">&larr; VOLTAR AO ÍNDICE DE CARTAS</a>
+            </p>
+            <article id="conteudo-carta"></article>
+        </section>
+
+        <!-- Módulo de Newsletter (D2C) -->
+        <section class="newsletter-section w3-center">
+            <h2 class="w3-medium w3-uppercase font-mono" style="color: var(--accent-color); letter-spacing: 2px; margin: 0 0 6px 0;">
+                Notícias do Artífice
+            </h2>
+            <p class="w3-small font-serif" style="color: var(--muted-color); max-width: 580px; margin: 0 auto 1.2rem auto; font-style: italic;">
+                Correspondência intermitente sobre a contracultura desta margem. <br>
+                Subscreve para receber as novas missivas e ensaios diretamente na tua caixa de correio.
+            </p>
+
+            <form action="https://buttondown.com/api/emails/embed-subscribe/pjfcl" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/pjfcl', 'popupwindow')" class="embeddable-buttondown-form">
+                <input type="email" name="email" id="bd-email" placeholder="teu.email@dominio.pt" required />
+                <input type="submit" value="Subscrever Notícias" />
+            </form>
+        </section>
+
+        <!-- Rodapé Padronizado -->
+        <footer class="site-footer">
+            <div class="container">
+                <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 1px; margin-bottom: 0.8rem;">
+                    ESTE DOMÍNIO É UM LABORATÓRIO CONSTRUÍDO PARA DURAR.
+                </p>
+                <div class="footer-links">
+                    <a href="https://paulolopes.org">Início</a> — 
+                    <a href="https://paulolopes.org/artefactos/">Artefactos</a>
+                </div>
+                <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 1px; margin-top: 15px; margin-bottom: 0;">
+                    © 2026 PAULO FURTADO LOPES
+                </p>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Motor JavaScript de Leitura -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarEpistolario();
+        });
+
+        async function carregarEpistolario() {
+            const vistaLista = document.getElementById('vista-lista');
+            const vistaLeitura = document.getElementById('vista-leitura');
+            const containerLista = document.getElementById('lista-cartas');
+            const containerCarta = document.getElementById('conteudo-carta');
+
+            try {
+                const resposta = await fetch('manifest.json');
+                if (!resposta.ok) throw new Error('Não foi possível carregar o manifest.json');
+                const cartas = await resposta.json();
+
+                const params = new URLSearchParams(window.location.search);
+                const slugAtivo = params.get('carta');
+
+                if (slugAtivo) {
+                    // MODO LEITURA
+                    const carta = cartas.find(c => c.slug === slugAtivo);
+                    if (carta) {
+                        vistaLista.style.display = 'none';
+                        vistaLeitura.style.display = 'block';
+
+                        // Reposiciona a janela no início exato da área de leitura da carta
+                        vistaLeitura.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                        const caminhoMD = `md/${carta.slug}.md`;
+                        
+                        try {
+                            const respMD = await fetch(caminhoMD);
+                            if (!respMD.ok) throw new Error(`Ficheiro ${caminhoMD} não encontrado.`);
+                            const markdown = await respMD.text();
+                            
+                            containerCarta.innerHTML = marked.parse(markdown);
+                        } catch (err) {
+                            containerCarta.innerHTML = `<p style="color: var(--accent-color);">${err.message}</p>`;
+                        }
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    // MODO LISTA / ÍNDICE
+                    vistaLeitura.style.display = 'none';
+                    vistaLista.style.display = 'block';
+
+                    if (cartas.length === 0) {
+                        containerLista.innerHTML = `<p style="font-size: 0.85rem; color: var(--muted-color);">Nenhuma carta arquivada de momento.</p>`;
+                        return;
+                    }
+
+                    containerLista.innerHTML = cartas.map((c) => `
+                        <a href="?carta=${c.slug}" class="categoria-card">
+                            <span class="numeral">${c.data}</span>
+                            <h2 class="titulo-cat">${c.titulo}</h2>
+                            <p class="desc-cat">${c.resumo}</p>
+                            <span class="tech-tags">Epistolário / Carta da Aldeia &rarr;</span>
+                        </a>
+                    `).join('');
+                }
+            } catch (erro) {
+                containerLista.innerHTML = `<p style="color: var(--accent-color);">Erro ao carregar o catálogo de cartas.</p>`;
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <title>Silo de Grãos v3.10 | Protocolo P.A.R.T.E.</title>
+    
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <style>
+        :root {
+            --bg-color: #fcfbf9;          /* Marfim de Arquivo */
+            --text-color: #2c2a29;        /* Antracite Profundo */
+            --accent-color: #8c2d19;      /* Vermelho Óxido */
+            --muted-color: #6e6b66;       /* Pedra / Grafite */
+            --border-color: #dcd7d0;      /* Linha subtil */
+            --card-bg: #ffffff;
+            --font-serif: "Cardo", "Baskerville", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: "IBM Plex Mono", "Courier New", monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.6;
+            padding-bottom: 140px;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        .grain-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            transition: border-color 0.2s ease;
+        }
+
+        .timestamp {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted-color);
+        }
+
+        .btn-action {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: transparent;
+            border: none;
+            color: var(--muted-color);
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        .btn-action:hover {
+            color: var(--accent-color);
+        }
+
+        .btn-delete:hover {
+            color: #b71c1c;
+        }
+
+        /* Área de Texto Expandida para Escrita Auto-Etnográfica */
+        #graoInput {
+            min-height: 180px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            background-color: #ffffff;
+        }
+
+        #graoInput:focus {
+            outline: 1px solid var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Barra de Ações Fixa no Fundo */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(252, 251, 249, 0.95);
+            border-top: 1px solid var(--border-color);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="w3-content w3-padding" style="max-width: 650px;">
+        
+        <!-- Navegação / Breadcrumb -->
+        <nav class="w3-margin-top font-sans w3-small w3-uppercase" style="letter-spacing: 0.08em; color: var(--muted-color);">
+            <a href="https://paulolopes.org" style="color: inherit; text-decoration: none;">paulolopes.org</a> / 
+            <a href="../index.html" style="color: inherit; text-decoration: none;">artefactos</a> / 
+            <span style="color: var(--text-color);">silo v3.10</span>
+        </nav>
+
+        <!-- Cabeçalho -->
+        <header class="w3-padding-16 w3-border-bottom" style="border-color: var(--border-color) !important;">
+            <div class="w3-flex w3-justify-between w3-items-center">
+                <div>
+                    <h1 class="w3-xlarge font-sans w3-wide" style="margin: 0; color: var(--text-color); font-weight: 600;">🌾 SILO DE GRÃOS</h1>
+                    <p class="font-mono w3-tiny w3-uppercase" style="margin: 0; color: var(--accent-color); letter-spacing: 0.1em;">Protocolo P.A.R.T.E. — Registo Auto-Etnográfico</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Formuário Ampliado de Captura de Campo -->
+        <section class="w3-section w3-padding-small">
+            <label class="font-mono w3-tiny w3-uppercase" style="color: var(--muted-color); display: block; margin-bottom: 6px;">
+                Registo de Campo (Janela de Escrita):
+            </label>
+            <textarea id="graoInput" class="w3-input font-serif w3-border" rows="8" placeholder="O que o Sensor captou? Observações da cozinha, do terreno ou da teoria..."></textarea>
+            <button onclick="adicionarGrao()" class="w3-button w3-block font-sans w3-small w3-uppercase w3-margin-top" style="background-color: var(--accent-color); color: #ffffff; letter-spacing: 0.08em; padding: 12px; font-weight: 600;">
+                CAPTURAR GRÃO
+            </button>
+        </section>
+
+        <!-- Área de Exportação / Relatório Completo (com opção de fecho) -->
+        <section id="areaExportacao" class="w3-panel w3-hide w3-padding w3-border" style="background-color: #f5f2eb; border-color: var(--border-color) !important;">
+            <div class="w3-flex w3-justify-between w3-items-center w3-margin-bottom">
+                <p class="font-mono w3-tiny w3-uppercase w3-bold" style="color: var(--accent-color); margin: 0;">Relatório Copiado para Transferência:</p>
+                <button onclick="fecharRelatorio()" class="btn-action font-mono" style="color: var(--accent-color); font-weight: bold;">[ Fechar Relatório ]</button>
+            </div>
+            <textarea id="resultadoFinal" class="w3-input font-mono w3-tiny w3-white w3-border" rows="6" readonly style="border-color: var(--border-color) !important;"></textarea>
+            <p class="font-sans w3-tiny w3-italic" style="color: var(--muted-color); margin-top: 6px; margin-bottom: 0;">Texto copiado automaticamente. Caso a cópia direta falhe no dispositivo, selecione e copie manualmente o bloco acima.</p>
+        </section>
+
+        <!-- Histórico de Grãos Capturados -->
+        <section id="listaGraos" class="w3-section"></section>
+
+    </main>
+
+    <!-- Rodapé Fixo com Ações Globais -->
+    <div class="sticky-footer w3-padding">
+        <div class="w3-content" style="max-width: 650px;">
+            <button onclick="prepararSessao()" class="w3-button w3-block font-sans w3-medium w3-uppercase" style="background-color: var(--text-color); color: var(--bg-color); letter-spacing: 0.08em; font-weight: 600; padding: 14px;">
+                COLHEITA TOTAL
+            </button>
+            <div class="w3-center w3-margin-top">
+                <button onclick="limparTudo()" class="btn-action btn-delete w3-tiny font-mono">
+                    [ Esvaziar Silo ]
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição Individual -->
+    <div id="modalEdicao" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-padding-large" style="max-width: 550px; background-color: var(--bg-color);">
+            <div class="w3-container">
+                <h3 class="font-sans w3-medium w3-uppercase w3-border-bottom w3-padding-small" style="border-color: var(--border-color) !important; color: var(--accent-color);">
+                    Editar Grão
+                </h3>
+                
+                <input type="hidden" id="editIndex">
+                
+                <div class="w3-row-padding w3-section" style="margin-left:-16px; margin-right:-16px;">
+                    <div class="w3-third">
+                        <label class="font-mono w3-tiny w3-uppercase">Data:</label>
+                        <input type="text" id="editData" class="w3-input font-mono w3-small w3-border" style="border-color: var(--border-color) !important;">
+                    </div>
+                    <div class="w3-third">
+                        <label class="font-mono w3-tiny w3-uppercase">Hora:</label>
+                        <input type="text" id="editHora" class="w3-input font-mono w3-small w3-border" style="border-color: var(--border-color) !important;">
+                    </div>
+                    <div class="w3-third">
+                        <label class="font-mono w3-tiny w3-uppercase">Local:</label>
+                        <input type="text" id="editLocal" class="w3-input font-mono w3-small w3-border" style="border-color: var(--border-color) !important;">
+                    </div>
+                </div>
+
+                <div class="w3-section">
+                    <label class="font-mono w3-tiny w3-uppercase">Texto do Grão:</label>
+                    <textarea id="editTexto" class="w3-input font-serif w3-border" rows="6" style="border-color: var(--border-color) !important;"></textarea>
+                </div>
+
+                <div class="w3-section w3-right-align">
+                    <button onclick="fecharModal()" class="w3-button font-sans w3-small w3-uppercase" style="background-color: var(--border-color); color: var(--text-color);">Cancelar</button>
+                    <button onclick="salvarEdicao()" class="w3-button font-sans w3-small w3-uppercase" style="background-color: var(--accent-color); color: #ffffff;">Guardar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Gestão, Geolocalização e Persistência Local -->
+    <script>
+        let silo = JSON.parse(localStorage.getItem('silo_graos') || '[]');
+
+        function obterLocalizacao() {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve("[sem local]");
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        const lat = pos.coords.latitude.toFixed(4);
+                        const lon = pos.coords.longitude.toFixed(4);
+                        resolve(`${lat}, ${lon}`);
+                    },
+                    () => resolve("[sem local]"),
+                    { timeout: 5000, enableHighAccuracy: true }
+                );
+            });
+        }
+
+        async function adicionarGrao() {
+            const el = document.getElementById('graoInput');
+            if (!el.value.trim()) return;
+            
+            const texto = el.value.trim();
+            el.value = '';
+
+            const local = await obterLocalizacao();
+            const novoGrao = {
+                texto: texto,
+                data: new Date().toLocaleDateString('pt-PT'),
+                hora: new Date().toLocaleTimeString('pt-PT', {hour: '2-digit', minute:'2-digit'}),
+                local: local
+            };
+
+            silo.push(novoGrao);
+            fecharRelatorio();
+            salvarERenderizar();
+        }
+
+        function salvarERenderizar() {
+            localStorage.setItem('silo_graos', JSON.stringify(silo));
+            const container = document.getElementById('listaGraos');
+            
+            if (silo.length === 0) {
+                container.innerHTML = `<p class="font-sans w3-center w3-small w3-italic" style="color: var(--muted-color); padding: 2rem 0;">O silo está vazio. Capture novas impressões acima.</p>`;
+                return;
+            }
+
+            const HTML = silo.slice().reverse().map((g, reverseIndex) => {
+                const actualIndex = silo.length - 1 - reverseIndex;
+                const locDisplay = g.local ? ` &bull; ${g.local}` : '';
+                return `
+                    <div class="grain-card w3-padding w3-margin-bottom">
+                        <div class="w3-flex w3-justify-between w3-items-center w3-border-bottom w3-padding-small" style="border-color: var(--border-color) !important;">
+                            <span class="timestamp">${g.data} — ${g.hora}${locDisplay}</span>
+                            <div>
+                                <button onclick="copiarGraoIndividual(${actualIndex})" class="btn-action">[ Copiar ]</button>
+                                <button onclick="abrirEdicao(${actualIndex})" class="btn-action">[ Editar ]</button>
+                                <button onclick="apagarGrao(${actualIndex})" class="btn-action btn-delete">[ Apagar ]</button>
+                            </div>
+                        </div>
+                        <div class="w3-padding-small font-serif" style="margin-top: 0.5rem; color: var(--text-color); white-space: pre-wrap;">${g.texto}</div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = HTML;
+        }
+
+        // Exportação Individual (Protocolo g:)
+        function copiarGraoIndividual(index) {
+            const g = silo[index];
+            const loc = g.local ? ` @ ${g.local}` : '';
+            const output = `g:\n● [${g.data} ${g.hora}${loc}] ${g.texto}`;
+
+            const area = document.getElementById('areaExportacao');
+            const txt = document.getElementById('resultadoFinal');
+            area.classList.remove('w3-hide');
+            txt.value = output;
+            txt.select();
+
+            try {
+                navigator.clipboard.writeText(output);
+            } catch (err) {
+                // Silencioso em caso de restrição do navegador
+            }
+        }
+
+        function fecharRelatorio() {
+            document.getElementById('areaExportacao').classList.add('w3-hide');
+        }
+
+        function apagarGrao(index) {
+            if (confirm("Deseja apagar este grão individual?")) {
+                silo.splice(index, 1);
+                salvarERenderizar();
+            }
+        }
+
+        function abrirEdicao(index) {
+            const grao = silo[index];
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editData').value = grao.data;
+            document.getElementById('editHora').value = grao.hora;
+            document.getElementById('editLocal').value = grao.local || '[sem local]';
+            document.getElementById('editTexto').value = grao.texto;
+            document.getElementById('modalEdicao').style.display = 'block';
+        }
+
+        function fecharModal() {
+            document.getElementById('modalEdicao').style.display = 'none';
+        }
+
+        function salvarEdicao() {
+            const index = document.getElementById('editIndex').value;
+            const data = document.getElementById('editData').value.trim();
+            const hora = document.getElementById('editHora').value.trim();
+            const local = document.getElementById('editLocal').value.trim();
+            const texto = document.getElementById('editTexto').value.trim();
+
+            if (!texto) {
+                alert("O texto do grão não pode ficar vazio.");
+                return;
+            }
+
+            silo[index] = { texto, data, hora, local };
+            fecharModal();
+            salvarERenderizar();
+        }
+
+        // Exportação Global (Protocolo ini:)
+        function prepararSessao() {
+            if (silo.length === 0) return alert("Silo vazio!");
+            
+            let output = `ini:\n\n### 🌾 RELATÓRIO DE COLHEITA (${new Date().toLocaleDateString('pt-PT')})\n\n`;
+            silo.forEach(g => { 
+                const loc = g.local ? ` @ ${g.local}` : '';
+                output += `● [${g.data} ${g.hora}${loc}] ${g.texto}\n`; 
+            });
+
+            const area = document.getElementById('areaExportacao');
+            const txt = document.getElementById('resultadoFinal');
+            area.classList.remove('w3-hide');
+            txt.value = output;
+            txt.select();
+
+            try {
+                navigator.clipboard.writeText(output);
+            } catch (err) {
+                // Silencioso em caso de restrição
+            }
+        }
+
+        function limparTudo() {
+            if (confirm("Deseja esvaziar todo o silo? Esta ação apaga todos os grãos.")) {
+                silo = [];
+                salvarERenderizar();
+                fecharRelatorio();
+            }
+        }
+
+        // Inicialização
+        salvarERenderizar();
+    </script>
+</body>
+</html>

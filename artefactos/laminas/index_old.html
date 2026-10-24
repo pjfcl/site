@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <title>Lâminas — paulolopes.org</title>
+
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        /* --- Variáveis Globais e Paleta Académica (style.css da secção) --- */
+        :root {
+            --bg-color: #fcfbf9;          /* Papel de arquivo / Marfim envelhecido */
+            --text-color: #2c2a29;        /* Antracite profundo / Tinta de impressão */
+            --accent-color: #8c2d19;      /* Vermelho óxido / Sanguínea de desenho */
+            --muted-color: #6e6b66;       /* Cinzento pedra / Grafite */
+            --border-color: #dcd7d0;      /* Linha de divisão subtil */
+            --card-bg: #ffffff;           /* Branco puro para blocos de leitura */
+            --font-serif: "Cardo", "Baskerville", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        /* Navegação em Migalhas (Breadcrumb) */
+        .breadcrumb {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+        }
+
+        .breadcrumb span {
+            color: var(--text-color);
+        }
+
+        /* Títulos */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.2rem;
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--muted-color);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        /* Lista de Lâminas */
+        .laminas-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .laminas-list li {
+            margin-bottom: 1rem;
+        }
+
+        .laminas-list a {
+            font-family: var(--font-sans);
+            font-size: 1.05rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2rem;
+            display: inline-block;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .laminas-list a:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Rodapé */
+        .site-footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2.5rem;
+            padding-bottom: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body class="w3-padding-large">
+
+    <main class="w3-content w3-padding-24" style="max-width: 800px;">
+        
+        <nav class="breadcrumb">
+            <a href="https://paulolopes.org">paulolopes.org</a> / <a href="https://paulolopes.org/artefactos/">artefactos</a> / <span>lâminas</span>
+        </nav>
+
+        <header class="w3-border-bottom w3-padding-16" style="border-color: var(--border-color) !important;">
+            <h1>Lâminas</h1>
+            <p class="subtitle">Atlas Visual e Cartogramas Táticos</p>
+        </header>
+
+        <section class="intro-text w3-padding-24 w3-border-bottom" style="border-color: var(--border-color) !important;">
+            <br>
+            <h2 class="w3-center" style="font-size: 1.5rem; font-weight: normal; color: var(--text-color);">
+                <strong>Exposição de Poesia <br> (Visual e Crítica)</strong>
+            </h2>
+            <br>
+            <p style="text-align: justify;">
+                Este espaço acolhe uma exposição autónoma de arte conceptual digital, concebida no âmbito de um processo contínuo de auto-etnografia. Mais do que inventariar o quotidiano, cada lâmina resulta das reflexões tecidas perante a asfixia da experiência vivida, provocada pela sociedade líquida neoliberal.
+            </p>
+            <br>
+            <p><strong>O que são e como nascem?</strong></p>
+            <br>
+            <p style="text-align: justify;">
+                As lâminas são artefactos visuais de formato aberto, produzidos integralmente através de meios digitais rudimentares — a partir da urgência e portabilidade de um telemóvel. Não se pretendem presas a uma temática única ou a um formato estático: futuras lâminas poderão abraçar novos temas, materiais simulados, texturas e padrões visuais, consoante a evolução do pensamento em trânsito.
+            </p>
+            <br>
+            <p><strong>Para que servem e como se usam?</strong></p>
+            <br>
+            <p style="text-align: justify;">
+                Servem o propósito elementar da sobrevivência existencial e da partilha estética. Numa época de volatilidade extrema em que a aceleração sistémica nos dissolve, as lâminas funcionam como um acto de resistência reflexiva: uma forma de fixar o pensamento crítico capturado no dia-a-dia, transformando a observação em poesia visual e conceptual.
+            </p>
+            <p style="text-align: justify;">
+                Trata-se de peças isoladas e autónomas — uma exposição individual de arte conceptual em permanente mutação —, desenhadas para circular livremente ou para habitar este canteiro exclusivo do arquivo, à margem de qualquer dogma rígido.
+            </p>
+            <br>
+            <h3 style="font-size: 1.1rem; font-weight: normal;"><p><strong>Registo documental das pranchas publicadas:</strong></p></h3>
+            <br>
+        </section>
+
+        <main class="w3-padding-24">
+            <ul class="laminas-list">
+                <li>
+                    <a href="pausa/">Lâmina 01 — Pausa</a>
+                </li>
+                
+                <li>
+                    <a href="protocolo/">Lâmina 02 — Protocolo</a>
+                </li>
+      
+                <li>
+                    <a href="artifice/">Lâmina 03 — Artífice</a>
+                </li>          
+                
+                <!-- Futura -->
+                
+                <!-- Futuras lâminas adicionam-se aqui de forma puramente linear -->
+            </ul>
+        </main>
+        
+        <br>
+        
+        <footer class="site-footer">
+            <p style="font-style: italic; font-family: var(--font-serif); margin-bottom: 0.8rem; color: var(--text-color);">Enquanto a mão corta, a mente destila.</p>
+            <div class="footer-links w3-margin-bottom">
+                <a href="https://paulolopes.org">Início</a> — 
+                <a href="https://paulolopes.org/artefactos/">Artefactos</a>
+            </div>
+            
+            <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--muted-color);">
+                ESTE DOMÍNIO É UM LABORATÓRIO ESTÁTICO. CONSTRUÍDO PARA DURAR.
+            </p>
+
+            <p class="font-mono w3-tiny" style="letter-spacing: 0.05em; color: var(--muted-color); margin: 0;">
+                © 2026 PAULO LOPES | ARQUIVO EM EXPANSÃO | ENCODING: UTF-8 • Powered by <a href="https://www.w3schools.com/w3css/" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;">W3.CSS</a>
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

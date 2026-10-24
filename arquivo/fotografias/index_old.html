@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    
+ <!-- Instruções para desativar a cache do browser -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    
+    <title>Galeria Fotográfica — Registo Documental</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+
+</head>
+<body>
+
+    <header class="gallery-header">
+        <h1>Álbuns de Campo</h1>
+        <nav id="album-nav" class="album-nav">
+            <!-- Os botões dos álbuns serão injetados via JavaScript -->
+        </nav>
+    </header>
+
+    <main>
+        <section id="gallery-grid" class="gallery-grid">
+            <!-- As fotografias do álbum activo serão injetadas aqui -->
+        </section>
+    </main>
+
+    <!-- Lightbox Simples para visualização ampliada -->
+    <div id="lightbox" class="lightbox" hidden>
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Ampliação fotográfica">
+    </div>
+
+ <script src="gallery.js?v=15" defer></script>
+
+
+    
+    
+</body>
+</html>

@@ -1,0 +1,167 @@
+/**
+ * Traduções — style.css (Edição Documental e Linear)
+ * Arquivo de Artefactos | paulolopes.org
+ */
+
+:root {
+    --bg-color: #fcfbf9;          /* Papel de arquivo / Marfim */
+    --text-color: #2c2a29;        /* Antracite profundo */
+    --accent-color: #8c2d19;      /* Vermelho óxido */
+    --muted-color: #6e6b66;       /* Grafite / Pedra */
+    --border-color: #dcd7d0;      /* Linha de separação subtil */
+    --font-serif: "Cardo", "Baskerville", "Georgia", "Times New Roman", serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", "Courier New", monospace;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    font-size: 1.15rem;
+    padding: 4rem 1.5rem;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Contentor central idêntico ao padrão do arquivo */
+header, main, .container {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* Navegação em migalhas (Breadcrumbs) */
+.breadcrumb {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted-color);
+    margin-bottom: 2rem;
+}
+
+.breadcrumb a {
+    color: var(--muted-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+}
+
+.breadcrumb span {
+    color: var(--text-color);
+}
+
+/* Título de Secção */
+h1 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+/* Bloco Introdutório / Nota de Curadoria */
+.intro-text {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.intro-text p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+}
+
+/* Primeira linha da nota de curadoria (data e local) em destaque técnico */
+.intro-text p:first-child {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--muted-color);
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+/* Lista de Ligações às Traduções/Vídeos */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 4rem;
+}
+
+ul li {
+    margin-bottom: 1.2rem;
+}
+
+ul li p {
+    margin: 0;
+}
+
+ul li a {
+    font-family: var(--font-sans);
+    font-size: 1.05rem;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.2rem;
+    display: inline-block;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+ul li a:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Rodapé Global */
+.site-footer {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--muted-color);
+}
+
+.site-footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.site-footer p {
+    font-style: italic;
+    font-family: var(--font-serif);
+    margin: 0;
+}
+
+.footer-links a {
+    color: var(--muted-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+}
+
+/* Ajuste para dispositivos móveis */
+@media (max-width: 600px) {
+    body {
+        padding: 2rem 1rem;
+    }
+    .site-footer .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

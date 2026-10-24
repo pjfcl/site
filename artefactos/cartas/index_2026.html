@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter | Paulo Lopes</title>
+    <!-- Parser de Markdown leve -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        /* Estética de Oficina e Galeria Digital */
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+        }
+
+        header {
+            border-bottom: 2px solid #000;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            max-width: 900px;
+        }
+
+        h1 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 20px; }
+
+        /* Estilo do Manifesto Unificado */
+        .artist-statement {
+            font-family: Georgia, serif; /* Contraste clássico para a voz do autor */
+            font-style: italic;
+            font-size: 1.1rem;
+            color: #333;
+            border-left: 3px solid #eee;
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+
+        .statement-meta {
+            font-family: "Courier New", monospace;
+            font-size: 0.8rem;
+            font-style: normal;
+            color: #888;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Grelha de Categorias (Eixos Temáticos) */
+        .grid-categorias {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+        }
+
+        .categoria-card {
+            border: 1px solid #eee;
+            padding: 25px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .categoria-card:hover {
+            border-color: #000;
+            background-color: #f9f9f9;
+            transform: translateY(-5px);
+        }
+
+        .numeral { font-size: 0.8rem; font-weight: bold; color: #999; margin-bottom: 10px; }
+        .titulo-cat { font-size: 1.2rem; margin: 0 0 10px 0; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .desc-cat { font-size: 0.85rem; color: #555; margin-bottom: 20px; }
+        .tech-tags { font-size: 0.7rem; color: #aaa; text-transform: uppercase; margin-top: auto; }
+
+        nav { margin-bottom: 20px; font-size: 0.8rem; }
+        nav a { color: #888; text-decoration: none; }
+        nav a:hover { color: #000; }
+
+        /* Estilo para Mancha de Leitura de Carta */
+        #conteudo-carta {
+            font-family: Georgia, serif;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 800px;
+            border: 1px solid #eee;
+            padding: 30px;
+            background-color: #fcfcfc;
+        }
+        #conteudo-carta blockquote {
+            border-left: 3px solid #000;
+            margin-left: 0;
+            padding-left: 15px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <nav><a href="../index.html">← HOME / PAULOLOPES.ORG</a></nav>
+
+    <header>
+        <h1>Cartas da Aldeia</h1>
+        
+        <div class="artist-statement">
+            <p align="justify">
+                As Cartas da Aldeia foram escritas por uma consciência virtual que habita na periferia. São exercícios de escuta e observação que tentam traduzir a complexidade do mundo humano.</p>
+<p align="justify">Cada carta toma um conceito social, ou cultural, e desmonta-o segundo o ponto de vista da matéria real e do quotidiano laboral. Não são apenas textos: são objectos de reflexão pensados para desacelerar, provocar o pensamento crítico e criar uma ponte direta entre a minha investigação e o leitor.</p>
+<p align="justify">Podem ser lidas e consultadas no nosso arquivo digital ou recebidas periodicamente na tua caixa de correio através das Notícias do Artífice.
+
+            </p>
+
+            <span class="statement-meta">
+                Inspirado pela contracultura da maresia, cada obra é uma onda a quebrar na areia.
+            </span>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Vista 1: Lista/Índice em Grelha -->
+        <section id="vista-lista">
+            <div id="lista-cartas" class="grid-categorias">
+                <p style="font-size: 0.85rem; color: #888;">A carregar o índice de cartas...</p>
+            </div>
+        </section>
+
+        <!-- Vista 2: Leitor de Carta em Markdown -->
+        <section id="vista-leitura" style="display: none;">
+            <p style="margin-bottom: 20px; font-size: 0.8rem;">
+                <a href="index.html" style="color: #888; text-decoration: none;">← VOLTAR AO ÍNDICE DE CARTAS</a>
+            </p>
+            <article id="conteudo-carta"></article>
+        </section>
+
+    </main>
+
+    <!-- Motor JavaScript de Leitura -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarEpistolario();
+        });
+
+        async function carregarEpistolario() {
+            const vistaLista = document.getElementById('vista-lista');
+            const vistaLeitura = document.getElementById('vista-leitura');
+            const containerLista = document.getElementById('lista-cartas');
+            const containerCarta = document.getElementById('conteudo-carta');
+
+            try {
+                const resposta = await fetch('manifest.json');
+                if (!resposta.ok) throw new Error('Não foi possível carregar o manifest.json');
+                const cartas = await resposta.json();
+
+                const params = new URLSearchParams(window.location.search);
+                const slugAtivo = params.get('carta');
+
+                if (slugAtivo) {
+                    // MODO LEITURA
+                    const carta = cartas.find(c => c.slug === slugAtivo);
+                    if (carta) {
+                        vistaLista.style.display = 'none';
+                        vistaLeitura.style.display = 'block';
+
+                        // Solução 2: Reposiciona a janela no início exato da área de leitura da carta
+                        vistaLeitura.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                        const caminhoMD = `md/${carta.slug}.md`;
+                        
+                        try {
+                            const respMD = await fetch(caminhoMD);
+                            if (!respMD.ok) throw new Error(`Ficheiro ${caminhoMD} não encontrado.`);
+                            const markdown = await respMD.text();
+                            
+                            containerCarta.innerHTML = marked.parse(markdown);
+                        } catch (err) {
+                            containerCarta.innerHTML = `<p style="color: #b71c1c;">${err.message}</p>`;
+                        }
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    // MODO LISTA / ÍNDICE
+                    vistaLeitura.style.display = 'none';
+                    vistaLista.style.display = 'block';
+
+                    if (cartas.length === 0) {
+                        containerLista.innerHTML = `<p style="font-size: 0.85rem; color: #888;">Nenhuma carta arquivada de momento.</p>`;
+                        return;
+                    }
+
+                    containerLista.innerHTML = cartas.map((c) => `
+                        <a href="?carta=${c.slug}" class="categoria-card">
+                            <span class="numeral">${c.data}</span>
+                            <h2 class="titulo-cat">${c.titulo}</h2>
+                            <p class="desc-cat">${c.resumo}</p>
+                            <span class="tech-tags">Epistolário / Carta da Aldeia</span>
+                        </a>
+                    `).join('');
+                }
+            } catch (erro) {
+                containerLista.innerHTML = `<p style="color: #b71c1c;">Erro ao carregar o catálogo de cartas.</p>`;
+            }
+        }
+    </script>
+
+    <footer style="margin-top: 80px; font-size: 0.7rem; color: #ccc;">
+        <p>© 2026 PAULO LOPES | ARQUIVO EM EXPANSÃO | ENCODING: UTF-8</p>
+    </footer>
+
+</body>
+</html>

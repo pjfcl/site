@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>01: RDB | Recipe Database Manager (Chez Scheme)</title>
+    
+    <style>
+        body {
+            background-color: #f4f4f4;
+            color: #1a1a1a;
+            font-family: 'Courier New', monospace;
+            padding: 50px;
+            line-height: 1.4;
+        }
+        .wrapper { max-width: 900px; margin: auto; border: 1px solid #ccc; background: #fff; padding: 40px; box-shadow: 10px 10px 0px #ddd; }
+        header { border-bottom: 2px solid #000; margin-bottom: 30px; }
+        .tag { background: #000; color: #fff; padding: 2px 8px; font-size: 0.8rem; }
+        h1 { margin: 10px 0; font-size: 1.5rem; text-transform: uppercase; }
+        
+        .section-title { font-weight: bold; text-transform: uppercase; margin-top: 30px; border-left: 5px solid #000; padding-left: 10px; }
+        .code-block { background: #eee; padding: 15px; border-radius: 3px; font-size: 0.85rem; overflow-x: auto; border-left: 3px solid #888; color: #333; }
+        
+        .architecture-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .architecture-table td, .architecture-table th { border: 1px solid #ddd; padding: 8px; font-size: 0.8rem; }
+        .architecture-table th { background: #f9f9f9; text-align: left; }
+
+        nav a { text-decoration: none; color: #000; border: 1px solid #000; padding: 5px 10px; font-size: 0.8rem; }
+        nav a:hover { background: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <nav><a href="../index.html">RETURN_TO_SOFTWARE_ROOT</a></nav>
+
+    <header>
+        <span class="tag">ARTEFACTO 01</span>
+        <h1>RDB: RECIPE DATABASE MANAGER</h1>
+        <p>Sistema de Gestão de Dados Gastronómicos em Chez Scheme (R6RS).</p>
+    </header>
+
+    <div class="section-title">I. Filosofia do Projecto</div>
+    <p>O RDB é uma ferramenta de precisão desenhada para o ambiente da cozinha profissional. Utilizando a elegância funcional do <strong>Chez Scheme</strong>, foca-se na integridade dos dados e na composição lógica de receitas através de S-expressions.</p>
+
+    <div class="section-title">II. Especificações Técnicas</div>
+    <table class="architecture-table">
+        <tr><th>Linguagem</th><td><a href="https://cisco.github.io/ChezScheme/" target="_blank" rel="noopener noreferrer" style="color: #000; font-weight: bold;">
+            Chez Scheme (R6RS) →
+        </a></td></tr>
+        <tr><th>Paradigma</th><td>Funcional / Recursivo</td></tr>
+        <tr><th>Interface</th><td>REPL / CLI (Command Line Interface)</td></tr>
+        <tr><th>Objectivo</th><td>Mapeamento de Insumos e Arquitectura de Sabores</td></tr>
+    </table>
+
+    <div class="section-title">III. Snippet de Implementação (Chez Scheme)</div>
+    <pre class="code-block">
+;; Definição de um Ingrediente (Record-Type)
+(define-record-type ingredient
+  (fields name quantity unit waste-percentage))
+
+;; Cálculo de peso líquido (Net Weight)
+(define (calcula-peso-liquido ing)
+  (let ([q (ingredient-quantity ing)]
+        [w (ingredient-waste-percentage ing)])
+    (* q (- 1 (/ w 100)))))
+
+;; Exemplo: Cebola Roxa com 12% de desperdício
+(define cebola-roxa (make-ingredient "Cebola Roxa" 1.5 'kg 12))
+    </pre>
+
+    <div class="section-title">IV. Manifesto do Artífice</div>
+    <p>A escolha de uma linguagem da família Lisp para a gestão gastronómica reflecte a busca pela sintaxe mínima e pela potência máxima. Em Scheme, a receita não é apenas um texto; é uma estrutura de dados viva.</p>
+
+    <footer>
+        <hr>
+        <p style="font-size: 0.7rem; color: #999;">Status: ACTIVE_STABLE | Last Build: 2026-03-22 | Encoding: UTF-8</p>
+    </footer>
+</div>
+
+</body>
+</html>

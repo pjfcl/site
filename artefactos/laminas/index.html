@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <title>Lâminas — Poesia Visual & Cartogramas | paulolopes.org</title>
+
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        /* --- Variáveis Globais e Paleta Académica --- */
+        :root {
+            --bg-color: #fcfbf9;          /* Papel de arquivo / Marfim envelhecido */
+            --text-color: #0f1e2d;        /* Azul-marinho profundo / Tinta */
+            --accent-color: #8c2d19;      /* Vermelho óxido / Sanguínea / Cal */
+            --muted-color: #5c6b73;       /* Azul pedra / Grafite / Salitre */
+            --border-color: #d8d3cd;      /* Linha de divisão subtil */
+            --card-bg: #ffffff;           /* Branco puro para blocos de leitura */
+            --font-serif: "Cardo", "Baskerville", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.8;
+            font-size: 1.05rem;
+            margin: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        /* Navegação em Migalhas (Breadcrumb) */
+        .breadcrumb {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .breadcrumb a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent-color);
+        }
+
+        .breadcrumb span {
+            color: var(--accent-color);
+        }
+
+        /* Títulos */
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Expressão Marcada para as Boxes das Séries */
+        .series-container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            padding: 26px 28px;
+            margin-bottom: 35px;
+            position: relative;
+        }
+
+        .series-title {
+            font-family: var(--font-sans);
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        .series-desc {
+            font-size: 0.95rem;
+            text-align: justify;
+            color: var(--muted-color);
+            margin-bottom: 20px;
+        }
+
+        /* Listas de Lâminas */
+        .laminas-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .laminas-list li {
+            margin-bottom: 0.9rem;
+        }
+
+        .laminas-list a {
+            font-family: var(--font-sans);
+            font-size: 1.02rem;
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2rem;
+            display: inline-block;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .laminas-list a:hover {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .tag-meta {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        /* Bloco Isolado e Distinto para a Casa da Costa */
+        .costa-callout {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--text-color);
+            padding: 20px 24px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .costa-callout-text h3 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 4px 0;
+            color: var(--text-color);
+        }
+
+        .costa-callout-text p {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin: 0;
+        }
+
+        .costa-btn {
+            font-family: var(--font-sans);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ffffff;
+            background-color: var(--text-color);
+            padding: 10px 16px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .costa-btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Módulo de Newsletter (D2C) */
+        .newsletter-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--accent-color);
+            padding: 28px;
+            margin-bottom: 50px;
+        }
+
+        .embeddable-buttondown-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .embeddable-buttondown-form input[type="email"] {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .embeddable-buttondown-form input[type="submit"] {
+            padding: 12px 18px;
+            border: 0;
+            background: var(--text-color);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .embeddable-buttondown-form input[type="submit"]:hover {
+            background: var(--accent-color);
+        }
+
+        /* Rodapé Restrito ao Portal */
+        .site-footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2.5rem;
+            padding-bottom: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+
+        .footer-links {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="w3-padding-large">
+
+    <main class="w3-content w3-padding-24" style="max-width: 800px;">
+        
+        <!-- Navegação Breadcrumb -->
+        <nav class="breadcrumb">
+            <a href="https://paulolopes.org">paulolopes.org</a> / <a href="https://paulolopes.org/artefactos/">artefactos</a> / <span>lâminas</span>
+        </nav>
+
+        <!-- Cabeçalho Principal -->
+        <header class="w3-padding-16">
+            <h1>Lâminas</h1>
+            <p class="subtitle">Atlas Conceptual, Poesia Visual & Cartogramas Tácticos</p>
+        </header>
+
+        <!-- Introdução Enquadradora -->
+        <section class="intro-text w3-padding-16" style="margin-bottom: 20px;">
+            <p style="text-align: justify; margin-top: 0;">
+                Este espaço acolhe uma exposição autónoma de arte conceptual digital, concebida no âmbito de um processo contínuo de investigação. Cada lâmina resulta de reflexões tecidas perante a aceleração da sociedade contemporânea.
+            </p>
+            
+            <p style="text-align: justify;">
+                <strong>O que são e como nascem?</strong><br>
+                As lâminas são artefactos visuais de formato aberto, produzidos integralmente através de meios digitais limpos — a partir da urgência táctil de fixar o pensamento em trânsito. Combinam tipografia monospaçada, síntese crítica e abstração poética para funcionar como actos de resistência reflexiva.
+            </p>
+        </section>
+
+        <!-- SÉRIE 01: LAVOS (CASA DA COSTA) -->
+        <section class="series-container">
+            <h2 class="series-title">Série Costa — Salitre e Pedra</h2>
+            <p class="series-desc">
+                Composições gráfico-textuais emergentes da exploração de um território. Esta série cruza a fricção do corpo com a matéria (cal, pedra, erosão) e a reflexão sobre o habitar costeiro.
+            </p>
+
+            <ul class="laminas-list">
+                <li>
+                    <a href="costa/salitre-e-pedra/">Lâmina Costa #01 — O Salitre como Arquitecto Silencioso</a>
+                    <span class="tag-meta">[2026]</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- SÉRIE 02: REGISTOS AUTO-ETNOGRÁFICOS (ORDEM DECRESCENTE) -->
+        <section class="series-container">
+            <h2 class="series-title">Série Fábrica — Registos Auto-Etnográficos</h2>
+            <p class="series-desc">
+                Pranchas de síntese poético-crítica perante a aceleração quotidiana.
+            </p>
+
+            <ul class="laminas-list">
+                <li>
+                    <a href="artifice/">Lâmina 03 — Artífice</a>
+                    <span class="tag-meta">[Set 2026]</span>
+                </li>
+
+                <li>
+                    <a href="protocolo/">Lâmina 02 — Protocolo</a>
+                    <span class="tag-meta">[Set 2026]</span>
+                </li>
+
+                <li>
+                    <a href="pausa/">Lâmina 01 — Pausa</a>
+                    <span class="tag-meta">[Set 2026]</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- BLOCO ISOLADO: LIGAÇÃO À CASA DA COSTA -->
+        <section class="costa-callout">
+            <div class="costa-callout-text">
+                <h3>Living Lab Casa da Costa</h3>
+                <p>Investigação - acção ecológica e diário de obra.</p>
+            </div>
+            <a href="https://paulolopes.org/costa/" class="costa-btn">Visitar Subdomínio &rarr;</a>
+        </section>
+
+        <!-- Módulo de Newsletter (Buttondown) -->
+        <section class="newsletter-section w3-center">
+            <h2 class="w3-medium w3-uppercase font-mono" style="color: var(--accent-color); letter-spacing: 2px; margin: 0 0 6px 0;">
+                Notícias do Artífice
+            </h2>
+            <p class="w3-small font-serif" style="color: var(--muted-color); max-width: 580px; margin: 0 auto 1.2rem auto; font-style: italic;">
+                Correspondência intermitente sobre poética visual, ensaios e artefactos do arquivo. <br>
+                Subscreve para receber as novas lâminas directamente na tua caixa de correio.
+            </p>
+
+            <form action="https://buttondown.com/api/emails/embed-subscribe/pjfcl" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/pjfcl', 'popupwindow')" class="embeddable-buttondown-form">
+                <input type="email" name="email" id="bd-email" placeholder="teu.email@dominio.pt" required />
+                <input type="submit" value="Subscrever Notícias" />
+            </form>
+        </section>
+
+        <!-- Rodapé Institucional (Navegação Restrita ao Portal) -->
+        <footer class="site-footer">
+            <p style="font-style: italic; font-family: var(--font-serif); margin-bottom: 0.8rem; color: var(--muted-color);">
+                "Enquanto a mão corta, a mente destila."
+            </p>
+            
+            <div class="footer-links">
+                <a href="https://paulolopes.org">Início</a> &mdash; 
+                <a href="https://paulolopes.org/artefactos/">Artefactos</a>
+            </div>
+            
+            <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--muted-color);">
+                ESTE DOMÍNIO É UM LABORATÓRIO CONSTRUÍDO PARA DURAR.
+            </p>
+
+            <p class="font-mono w3-tiny" style="letter-spacing: 0.05em; color: var(--muted-color); margin: 0;">
+                © 2026 PAULO FURTADO LOPES | ARQUIVO EM EXPANSÃO | CODIFICAÇÃO: UTF-8
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

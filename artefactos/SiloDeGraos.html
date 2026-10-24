@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sancho - Coletor de Grãos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #fdfbf7; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .grain-card { border-left: 4px solid #444; }
+        .timestamp { font-family: monospace; font-size: 0.7rem; color: #888; }
+    </style>
+</head>
+<body class="p-4 text-stone-900">
+    <div class="max-w-md mx-auto">
+        <header class="mb-6 border-b border-stone-200 pb-2 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold tracking-tight text-stone-800">🌾 SILO DE GRÃOS</h1>
+                <p class="text-[10px] text-stone-500 uppercase tracking-widest">Protocolo P.A.R.T.E.</p>
+            </div>
+        </header>
+        
+        <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 mb-6">
+            <textarea id="graoInput" class="w-full p-2 text-sm bg-stone-50 border-none focus:ring-0 mb-2" rows="3" placeholder="O que o Sensor captou?"></textarea>
+            
+            <!-- Campos para edição opcional de data e hora -->
+            <div id="camposDataHora" class="mb-3 pt-2 border-t border-stone-100 hidden grid grid-cols-2 gap-2">
+                <div>
+                    <label class="block text-[9px] uppercase text-stone-500 mb-1 font-semibold">Data</label>
+                    <input type="date" id="dataInput" class="w-full p-1.5 text-xs bg-stone-50 border border-stone-200 rounded">
+                </div>
+                <div>
+                    <label class="block text-[9px] uppercase text-stone-500 mb-1 font-semibold">Hora</label>
+                    <input type="time" id="horaInput" class="w-full p-1.5 text-xs bg-stone-50 border border-stone-200 rounded">
+                </div>
+            </div>
+
+            <button onclick="adicionarOuAtualizarGrao()" id="btnAcao" class="w-full bg-stone-800 text-white py-3 rounded-md font-semibold text-sm hover:bg-black transition uppercase">Colher</button>
+            <button onclick="cancelarEdicao()" id="btnCancelar" class="w-full mt-2 bg-stone-200 text-stone-700 py-2 rounded-md font-semibold text-xs hover:bg-stone-300 transition uppercase hidden">Cancelar Edição</button>
+        </div>
+
+
+        <div id="areaExportacao" class="hidden mb-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+            <p class="text-[10px] font-bold text-amber-800 mb-2 uppercase">Pronto para o Sancho:</p>
+            <textarea id="resultadoFinal" class="w-full p-2 text-xs font-mono bg-white border border-amber-300 rounded mb-2" rows="5" readonly></textarea>
+            <p class="text-[10px] text-amber-700 italic">Se não copiou sozinho, selecione o texto acima e copie.</p>
+        </div>
+
+
+        <div id="listaGraos" class="space-y-3 mb-24"></div>
+
+
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-xs px-4">
+            <button onclick="prepararSessao()" class="w-full bg-emerald-700 text-white py-4 rounded-2xl shadow-2xl font-bold flex flex-col items-center border-2 border-white">
+                <span>FINALIZAR COLHEITA</span>
+            </button>
+            <button onclick="limparTudo()" class="w-full mt-4 text-[9px] text-stone-400 uppercase text-center tracking-tighter">Esvaziar Silo</button>
+        </div>
+    </div>
+
+
+    <script>
+        let silo = JSON.parse(localStorage.getItem('silo_graos') || '[]');
+        let indiceEdicao = null;
+
+        // Função auxiliar para formatar uma data YYYY-MM-DD para DD/MM/YYYY
+        function formatarDataPt(dataStr) {
+            if (!dataStr) return new Date().toLocaleDateString('pt-PT');
+            const partes = dataStr.split('-');
+            if (partes.length === 3) {
+                return `${partes[2]}-${partes[1]}-${partes[0]}`;
+            }
+            return dataStr;
+        }
+
+        // Função auxiliar para formatar DD/MM/YYYY para YYYY-MM-DD (para o input type="date")
+        function formatarDataIso(dataPt) {
+            if (!dataPt) return '';
+            const partes = dataPt.split('-');
+            if (partes.length === 3) {
+                return `${partes[2]}-${partes[1]}-${partes[0]}`;
+            }
+            return '';
+        }
+
+        function adicionarOuAtualizarGrao() {
+            const el = document.getElementById('graoInput');
+            const inputData = document.getElementById('dataInput');
+            const inputHora = document.getElementById('horaInput');
+
+            if (!el.value.trim()) return;
+
+            if (indiceEdicao !== null) {
+                // Atualiza o grão existente com o texto e as customizações de data/hora se preenchidas
+                silo[indiceEdicao].texto = el.value.trim();
+                if (inputData.value) {
+                    silo[indiceEdicao].data = formatarDataPt(inputData.value);
+                }
+                if (inputHora.value) {
+                    silo[indiceEdicao].hora = inputHora.value;
+                }
+                
+                indiceEdicao = null;
+                document.getElementById('btnAcao').textContent = 'Colher';
+                document.getElementById('btnCancelar').classList.add('hidden');
+                document.getElementById('camposDataHora').classList.add('hidden');
+            } else {
+                // Adiciona um novo grão com a data e hora do momento exato
+                const agora = new Date();
+                const novoGrao = {
+                    texto: el.value.trim(),
+                    data: agora.toLocaleDateString('pt-PT'),
+                    hora: agora.toLocaleTimeString('pt-PT', {hour: '2-digit', minute:'2-digit'})
+                };
+                silo.push(novoGrao);
+            }
+
+            el.value = '';
+            inputData.value = '';
+            inputHora.value = '';
+            document.getElementById('areaExportacao').classList.add('hidden');
+            salvarERenderizar();
+        }
+
+
+        function editarGrao(index) {
+            const indiceReal = silo.length - 1 - index;
+            const el = document.getElementById('graoInput');
+            const inputData = document.getElementById('dataInput');
+            const inputHora = document.getElementById('horaInput');
+            
+            const grao = silo[indiceReal];
+            el.value = grao.texto;
+            inputData.value = formatarDataIso(grao.data);
+            inputHora.value = grao.hora;
+
+            el.focus();
+            indiceEdicao = indiceReal;
+
+            document.getElementById('btnAcao').textContent = 'Guardar Alteração';
+            document.getElementById('btnCancelar').classList.remove('hidden');
+            document.getElementById('camposDataHora').classList.remove('hidden');
+        }
+
+
+        function cancelarEdicao() {
+            indiceEdicao = null;
+            document.getElementById('graoInput').value = '';
+            document.getElementById('dataInput').value = '';
+            document.getElementById('horaInput').value = '';
+            document.getElementById('btnAcao').textContent = 'Colher';
+            document.getElementById('btnCancelar').classList.add('hidden');
+            document.getElementById('camposDataHora').classList.add('hidden');
+        }
+
+
+        function salvarERenderizar() {
+            localStorage.setItem('silo_graos', JSON.stringify(silo));
+            const container = document.getElementById('listaGraos');
+            container.innerHTML = silo.map((g, i) => `
+                <div class="grain-card bg-white p-3 shadow-sm flex justify-between items-start">
+                    <div>
+                        <div class="timestamp uppercase">${g.data} — ${g.hora}</div>
+                        <div class="text-sm text-stone-700 mt-1">${g.texto}</div>
+                    </div>
+                    <button onclick="editarGrao(${silo.length - 1 - i})" class="text-[10px] uppercase font-semibold bg-stone-100 text-stone-600 px-2 py-1 rounded hover:bg-stone-200 transition ml-2">Editar</button>
+                </div>
+            `).reverse().join('');
+        }
+
+
+        function prepararSessao() {
+            if (silo.length === 0) return alert("Silo vazio!");
+            
+            let output = `ini:\n\n### 🌾 RELATÓRIO DE COLHEITA (${new Date().toLocaleDateString()})\n\n`;
+            silo.forEach(g => { output += `● [${g.hora}] g: ${g.texto}\n`; });
+            output += `\n---\n*Pronto para processamento.*`;
+
+
+            const area = document.getElementById('areaExportacao');
+            const txt = document.getElementById('resultadoFinal');
+            area.classList.remove('hidden');
+            txt.value = output;
+            txt.select();
+
+
+            try {
+                navigator.clipboard.writeText(output);
+                alert("Copiado com sucesso! Se falhou, use a caixa amarela.");
+            } catch (err) {
+                alert("Por favor, copie manualmente da caixa amarela.");
+            }
+        }
+
+
+        function limparTudo() {
+            if(confirm("Limpar silo?")) { 
+                silo = []; 
+                cancelarEdicao();
+                salvarERenderizar(); 
+                document.getElementById('areaExportacao').classList.add('hidden'); 
+            }
+        }
+
+        salvarERenderizar();
+    </script>
+</body>
+</html>

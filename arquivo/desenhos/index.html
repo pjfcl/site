@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <title>Desenhos | Arquivo Histórico | Paulo Furtado Lopes</title>
+
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        /* Paleta Soberana: Azul-Marinho, Vermelho-Tijolo e Fundo Claro */
+        :root {
+            --bg-color: #fcfbf9;          /* Marfim de Arquivo / Papel */
+            --text-color: #0f1e2d;        /* Azul-Marinho Profundo */
+            --accent-color: #8c2d19;      /* Vermelho-Tijolo / Sanguínea */
+            --muted-color: #5c6b73;       /* Azul Pedra / Grafite */
+            --border-color: #d8d3cd;      /* Linha de Divisão Subtil */
+            --card-bg: #ffffff;           /* Branco Puro para Blocos */
+            
+            --font-serif: "Cardo", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        /* Navegação Superior */
+        nav {
+            margin-bottom: 25px;
+        }
+
+        nav a {
+            font-family: var(--font-sans);
+            color: var(--muted-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Cabeçalho */
+        header {
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+
+        h1 {
+            font-family: var(--font-sans);
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-color);
+            margin: 0 0 6px 0;
+        }
+
+        .subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* Bloco de Estado de Arquivo */
+        .status-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .status-tag {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        /* Módulo de Newsletter (D2C) */
+        .newsletter-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--accent-color);
+            padding: 28px;
+            margin-bottom: 50px;
+        }
+
+        .embeddable-buttondown-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 440px;
+            margin: 0 auto;
+        }
+
+        .embeddable-buttondown-form input[type="email"] {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        .embeddable-buttondown-form input[type="submit"] {
+            padding: 12px 18px;
+            border: 0;
+            background: var(--text-color);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .embeddable-buttondown-form input[type="submit"]:hover {
+            background: var(--accent-color);
+        }
+
+        /* Rodapé */
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+            padding-bottom: 30px;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="w3-padding-large">
+
+    <main class="w3-content w3-padding-24" style="max-width: 900px;">
+
+        <!-- NAVEGAÇÃO -->
+        <nav>
+            <a href="../../index.html">&larr; HOME / PAULOLOPES.ORG</a>
+        </nav>
+
+        <!-- CABEÇALHO -->
+        <header>
+            <h1>Desenhos</h1>
+            <div class="subtitle">Arquivo Histórico • Traço Urbano & Figura Humana</div>
+        </header>
+
+        <!-- ESTADO DO ACERVO -->
+        <section class="status-box">
+            <span class="status-tag">[ Estado: Acervo em organização na oficina ]</span>
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-top: 0;">
+                Arquivo analógico em fase de triagem e digitalização de suporte. As pranchas de desenho e as séries em grafite serão integradas neste repositório de forma faseada.
+            </p>
+            <p class="font-mono w3-small" style="color: var(--muted-color); margin-bottom: 0;">
+                Notificações: Difusão anunciada via Notícias do Artífice.
+            </p>
+        </section>
+
+        <!-- NEWSLETTER (CAPTAÇÃO D2C) -->
+        <section class="newsletter-section w3-center">
+            <h2 class="w3-medium w3-uppercase font-mono" style="color: var(--accent-color); letter-spacing: 2px; margin: 0 0 6px 0;">
+                Notícias do Artífice
+            </h2>
+            <p class="w3-small font-serif" style="color: var(--muted-color); max-width: 580px; margin: 0 auto 1.2rem auto; font-style: italic;">
+                Correspondência intermitente sobre a contracultura desta margem. <br>
+                Subscreve para receber o aviso de publicação destas séries diretamente na tua caixa de correio.
+            </p>
+
+            <form action="https://buttondown.com/api/emails/embed-subscribe/pjfcl" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/pjfcl', 'popupwindow')" class="embeddable-buttondown-form">
+                <input type="email" name="email" id="bd-email" placeholder="teu.email@dominio.pt" required />
+                <input type="submit" value="Subscrever Notícias" />
+            </form>
+        </section>
+
+        <!-- RODAPÉ SOBERANO -->
+        <footer>
+            <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 1px; margin-bottom: 0.8rem;">
+                ESTE DOMÍNIO É UM LABORATÓRIO CONSTRUÍDO PARA DURAR.
+            </p>
+            <p style="font-size: 0.8rem; margin: 0;">
+                Contacto Direto: <a href="mailto:adm@paulolopes.org" style="color: var(--text-color); font-weight: 600;">adm@paulolopes.org</a><br>
+                © 2026 PAULO FURTADO LOPES
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

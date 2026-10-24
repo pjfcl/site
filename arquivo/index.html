@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <title>Arquivo Histórico | Paulo Lopes</title>
+
+    <!-- Framework W3.CSS -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        /* Paleta do Arquivo de Artefactos (style.css oficial da secção) */
+        :root {
+            --bg-color: #fcfbf9;          /* Papel de arquivo / Marfim envelhecido */
+            --text-color: #2c2a29;        /* Antracite profundo / Tinta de impressão */
+            --accent-color: #8c2d19;      /* Vermelho óxido / Sanguínea de desenho */
+            --muted-color: #6e6b66;       /* Cinzento pedra / Grafite */
+            --border-color: #dcd7d0;      /* Linha de divisão subtil */
+            --card-bg: #ffffff;           /* Branco puro para blocos de leitura */
+            --font-serif: "Cardo", "Baskerville", "Georgia", "Times New Roman", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+            font-family: var(--font-serif);
+            line-height: 1.7;
+            font-size: 1.05rem;
+            margin: 0;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-sans { font-family: var(--font-sans) !important; }
+        .font-mono { font-family: var(--font-mono) !important; }
+
+        /* Navegação Superior */
+        nav a {
+            color: var(--muted-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Título Principal */
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Statement do Autor */
+        .artist-statement {
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            border-left: 3px solid var(--accent-color);
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .statement-meta {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-style: normal;
+            color: var(--muted-color);
+            margin-top: 1rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Cartões da Grelha */
+        .categoria-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            text-decoration: none !important;
+            color: inherit !important;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .categoria-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .numeral {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .titulo-cat {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin: 0 0 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.4rem;
+            color: var(--text-color);
+        }
+
+        .desc-cat {
+            font-size: 0.95rem;
+            color: var(--muted-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tags {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            color: var(--muted-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: auto;
+        }
+
+        /* Bloco da Newsletter */
+        .newsletter-section {
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Rodapé */
+        footer {
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            color: var(--muted-color);
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="w3-padding-large">
+
+    <main class="w3-content w3-padding-24" style="max-width: 1100px;">
+
+        <!-- Navegação -->
+        <nav class="w3-margin-bottom font-sans w3-small w3-uppercase" style="letter-spacing: 0.08em;">
+            <a href="../index.html">&larr; HOME / PAULOLOPES.ORG</a>
+        </nav>
+
+        <!-- Cabeçalho & Manifesto -->
+        <header class="w3-padding-16 w3-border-bottom" style="border-color: var(--border-color) !important; margin-bottom: 3rem;">
+            <h1>Arquivo Histórico</h1>
+            
+            <div class="artist-statement">
+                <p style="text-align: justify; margin-bottom: 1rem;">
+                     A minha prática ancora-se na convergência entre a disciplina do trabalho manual e a reflexão do pensamento crítico. Aqui cruza-se o trabalho de bancada, a soberania tecnológica e a cultura material. Esta secção reúne a produção concluída do meu percurso e da minha investigação actual.
+                </p>
+                <p style="text-align: justify; margin-bottom: 1rem;">
+                     Um artefacto é, por definição, o resultado de uma transformação deliberada da matéria e da linguagem através da técnica, do gesto e da intenção crítica. Todos os artefactos aqui apresentados estão disponíveis para consulta aberta (Open Access), podendo integrar edições de autor, tiragens físicas e circulações sob subscrição.
+                </p>
+            </div>
+            <span class="statement-meta">
+                <p justify="midlle">Inspirado pela contracultura da maresia, cada obra é uma onda a quebrar na areia.</p>
+            </span>
+            
+        </header>
+
+        <!-- Grelha de Categorias Reorganizada por Ordem Alfabética (I a IV) -->
+        <section class="w3-row-padding" style="margin-left:-16px; margin-right:-16px;">
+
+            <!-- I. Código (Software) -->
+            <div class="w3-col l6 m6 s12 w3-margin-bottom">
+                <a href="codigo/index.html" class="categoria-card">
+                    <span class="numeral">I.</span>
+                    <h2 class="titulo-cat">Código (Software)</h2>
+                    <p class="desc-cat">O Rigor da Forma: Algoritmos e gestão de dados.</p>
+                    <span class="tech-tags">C / Scheme / Web</span>
+                </a>
+            </div>
+
+            <!-- II. Desenhos -->
+            <div class="w3-col l6 m6 s12 w3-margin-bottom">
+                <a href="desenhos/index.html" class="categoria-card">
+                    <span class="numeral">II.</span>
+                    <h2 class="titulo-cat">Desenhos</h2>
+                    <p class="desc-cat">Traço Urbano e Figura Humana: Raízes analógicas da década de 90.</p>
+                    <span class="tech-tags">Pintura / Grafite / Analógico</span>
+                </a>
+            </div>
+
+            <!-- III. Fotografias -->
+            <div class="w3-col l6 m6 s12 w3-margin-bottom">
+                <a href="fotografias/index.html" class="categoria-card">
+                    <span class="numeral">III.</span>
+                    <h2 class="titulo-cat">Fotografias</h2>
+                    <p class="desc-cat">Mobile Photography: Captura dos instantes da luz.</p>
+                    <span class="tech-tags">Luz / Observação / Digital</span>
+                </a>
+            </div>
+
+            <!-- IV. Traduções -->
+            <div class="w3-col l6 m6 s12 w3-margin-bottom">
+                <a href="legendagem/index.html" class="categoria-card">
+                    <span class="numeral">IV.</span>
+                    <h2 class="titulo-cat">Traduções</h2>
+                    <p class="desc-cat">Remediação: Legendagem e curadoria de videos musicais.</p>
+                    <span class="tech-tags">Linguagem / Tradução / Legendas</span>
+                </a>
+            </div>
+
+        </section>
+
+        <!-- Form do Buttondown Integrado -->
+        <form
+          action="https://buttondown.com/api/emails/embed-subscribe/pjfcl"
+          method="post"
+          class="embeddable-buttondown-form"
+        >
+          <label for="bd-email">Notícias do Artífice</label>
+          <p align="justify">
+            <br>
+            Correspondência intermitente sobre a contracultura desta margem. <br>Recebe notícias minhas na tua caixa de entrada:
+          </p>
+          <input type="email" name="email" id="bd-email" placeholder="teu.email@dominio.pt" required />
+          <input type="submit" value="Subscrever" />
+          <p>
+            <a href="https://buttondown.com/refer/pjfcl" target="_blank">
+            </a>
+          </p>
+        </form>
+        <style>
+          .embeddable-buttondown-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            box-sizing: border-box;
+            max-width: 384px;
+            margin: 3rem auto 1rem auto;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+          }
+          .embeddable-buttondown-form label,
+          .embeddable-buttondown-form legend {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+          }
+          .embeddable-buttondown-form input[type="email"],
+          .embeddable-buttondown-form input[type="text"],
+          .embeddable-buttondown-form select {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+          }
+          .embeddable-buttondown-form fieldset {
+            margin: 0;
+            padding: 0;
+            border: 0;
+          }
+          .embeddable-buttondown-form fieldset label {
+            display: block;
+            font-weight: 400;
+          }
+          .embeddable-buttondown-form input[type="submit"] {
+            padding: 10px 14px;
+            border: 0;
+            background: var(--accent-color);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.2s ease;
+          }
+          .embeddable-buttondown-form input[type="submit"]:hover {
+            background: var(--text-color);
+          }
+          .embeddable-buttondown-form p {
+            margin: 0;
+            font-size: 0.75rem;
+            text-align: center;
+            font-family: var(--font-mono);
+          }
+          .embeddable-buttondown-form p a {
+            color: var(--muted-color);
+            text-decoration: underline;
+          }
+        </style>
+
+        <!-- Rodapé -->
+        <footer>
+            <p class="font-mono w3-tiny w3-uppercase w3-wide" style="letter-spacing: 0.05em; margin-bottom: 0.5rem;">
+                ESTE DOMÍNIO É UM LABORATÓRIO CONSTRUÍDO PARA DURAR.
+            </p>
+            <p class="font-mono w3-tiny" style="letter-spacing: 0.05em; margin: 0;">
+                © 2026 PAULO LOPES | ARQUIVO EM EXPANSÃO | CODIFICAÇÃO: UTF-8
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

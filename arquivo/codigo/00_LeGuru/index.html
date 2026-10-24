@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>00: LeGuru | Artefacto de Oráculo</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff41; /* Verde Matrix/Terminal */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 1px solid #00ff41;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .container-swf {
+            border: 2px solid #333;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            background-color: #000;
+            /* Ajustar dimensões conforme o swf original */
+            width: 640px; 
+            height: 480px;
+            position: relative;
+        }
+
+        .ficha-tecnica {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            max-width: 600px;
+            color: #888;
+        }
+
+        nav a { color: #00ff41; text-decoration: none; font-size: 0.9rem; }
+        nav a:hover { background: #00ff41; color: #000; }
+    </style>
+    
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+</head>
+<body>
+
+    <nav><a href="../index.html">< CD .. (VOLTAR AO SOFTWARE)</a></nav>
+
+    <header>
+        <h1>ARTEFACTO 00: LeGuru</h1>
+        <p>[ ORÁCULO ALGORÍTMICO EM FLASH (SWF) ]</p>
+    </header>
+
+    <div class="container-swf" id="swf-player">
+        <object>
+            <param name="movie" value="leguru.swf">
+            <embed src="leguru.swf" width="600px" height="400px">
+            </embed>
+        </object>
+    </div>
+
+    <footer class="ficha-tecnica">
+        <p><strong>Nota Curatorial:</strong> Peça datada de 2010, recuperada de uma Especialização em Multimédia. 
+        O LeGuru actua como um mediador entre a incerteza humana e a lógica binária. 
+        Executado via emulação Ruffle para preservação histórica.</p>
+        <p>> ESTADO: EMULAÇÃO ACTIVA</p>
+    </footer>
+
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.addEventListener("load", (event) => {
+            const ruffle = window.RufflePlayer.newest();
+            const player = ruffle.createPlayer();
+            const container = document.getElementById("swf-player");
+            container.innerHTML = "";
+            container.appendChild(player);
+            player.load("LeGuru.swf");
+        });
+    </script>
+
+</body>
+</html>
